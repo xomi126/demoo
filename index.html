@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-ezQlNIkQgPRi0zAljFWHKf/BQlTnNpLxZmM8SokGYC3S8+Dn5W5z4nU5I3xfJsP" crossorigin="anonymous">
+</head>
+<style>
+    .button-container {
+        display: flex;
+        justify-content: space-between; /* Adjust as needed */
+    }
+
+    .icon {
+        margin-right: 0px; /* Adjust spacing between icons */
+    }
+
+    body {
+        font-family: Telegraf, Helvetica Neue, Helvetica, Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        background-color: #000;
+        color: #fff;
+    }
+    .video-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background-color: black;
+    }
+    #myVideo {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .img-fluid {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    .transition-video {
+        position: relative;
+        overflow: hidden; /* Hide overflow to clip the zoom effect */
+        transition: transform 1.2s ease; /* Add transition to the transform property */
+    }
+
+    .button-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 210px;
+        text-align: center;
+    }
+
+    .button-container .btn {
+        transition: transform 0.5s ease;
+    }
+
+    /* Apply a zoom-in effect on the image when the class 'zoomed' is added */
+    .transition-video.zoomed {
+        transform: scale(3.5); /* Adjust the scale factor as needed */
+    }
+    .transition-video.zoomed-left {
+        transform: scale(3.5) translate(30%, -5%);
+    }
+    .transition-video.zoomed-right {
+        transform: scale(3.5) translate(-35%, -5%);
+    }
+.container-fluid{
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%; /* Set height to 100% of the viewport */
+        overflow: hidden; /* Hide overflow */
+    }
+    #video-container {
+        position: relative;
+    }
+    #close-button {
+        font-size: 24px; /* Increase font size */
+        color: white; /* Text color */
+        background-color: red; /* Background color */
+        padding: 10px; /* Padding around the text */
+        border-radius: 50%; /* Circular shape */
+        cursor: pointer; /* Cursor indicates clickable item */
+        width: 40px; /* Width of the button */
+        height: 40px; /* Height of the button */
+        display: flex; /* Flexbox for centering content */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        border: none; /* No border */
+        position: fixed; /* Fixed position */
+        top: 20px; /* Distance from the top */
+        right: 20px; /* Distance from the right */
+        z-index: 1000; /* Ensure it's above other elements */
+    }
+    @media only screen and (min-width: 1200px) {
+        #hubImage img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    @media only screen and (min-width: 667px) and (max-width: 1199px) {
+        #hubImage img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="position-relative">
+        <div class="transition-video panorama-transition" id="hubImage">
+            <img src="images/indexjpg%20(1).jpg" class="img-fluid " alt="" >
+        </div>
+        <div class="video-container" id="videoContainer" style="display:none;">
+            <div id="close-button" onclick="index.html()">X</div>
+            <video id="myVideo" controls>
+                <source src="videos/DesigntexIntro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="button-container" id="hide-button">
+            <div class="button-wrapper" style="text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" id="button1" viewBox="0 0 52 52" class="icon left" style="width: 50px;height: 40px; color: #ff0000; transform: rotate(180deg)">
+                    <defs>
+                        <filter id="hotspot-arrow_svg__a" x="0" y="0" filterUnits="userSpaceOnUse">
+                            <feOffset dy="3"></feOffset>
+                            <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                            <feFlood flood-opacity="0.161"></feFlood>
+                            <feComposite operator="in" in2="blur"></feComposite>
+                            <feComposite in="SourceGraphic"></feComposite>
+                        </filter>
+                    </defs>
+                    <g data-name="Group 55">
+                        <g transform="translate(0 .002)" filter="url(#hotspot-arrow_svg__a)" data-name="Group 44">
+                            <circle data-name="Ellipse 5" cx="17" cy="17" r="17" transform="rotate(90 18.5 24.5)" fill="#fffefe"></circle>
+                        </g>
+                        <path data-name="Icon ionic-ios-arrow-forward" d="m28.638 22.508-7.38-7.554a1.446 1.446 0 0 1 0-2.017 1.382 1.382 0 0 1 1.974 0l8.361 8.56a1.451 1.451 0 0 1 .041 1.969l-8.4 8.62a1.378 1.378 0 0 1-1.974 0 1.446 1.446 0 0 1 0-2.017Z"></path>
+                    </g>
+                </svg>
+                <br>
+                <span class="button-label" style="color: black">Intro</span>
+            </div>
+            <div class="button-wrapper" style="text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" id="button2" viewBox="0 0 52 52" class="icon up" style="width: 520px; height: 40px; color: #ff0000; transform: rotate(270deg)">
+                    <defs>
+                        <filter id="hotspot-arrow_svg__a" x="0" y="0" filterUnits="userSpaceOnUse">
+                            <feOffset dy="3"></feOffset>
+                            <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                            <feFlood flood-opacity="0.161"></feFlood>
+                            <feComposite operator="in" in2="blur"></feComposite>
+                            <feComposite in="SourceGraphic"></feComposite>
+                        </filter>
+                    </defs>
+                    <g data-name="Group 55">
+                        <g transform="translate(0 .002)" filter="url(#hotspot-arrow_svg__a)" data-name="Group 44">
+                            <circle data-name="Ellipse 5" cx="17" cy="17" r="17" transform="rotate(90 18.5 24.5)" fill="#fffefe"></circle>
+                        </g>
+                        <path data-name="Icon ionic-ios-arrow-forward" d="m28.638 22.508-7.38-7.554a1.446 1.446 0 0 1 0-2.017 1.382 1.382 0 0 1 1.974 0l8.361 8.56a1.451 1.451 0 0 1 .041 1.969l-8.4 8.62a1.378 1.378 0 0 1-1.974 0 1.446 1.446 0 0 1 0-2.017Z"></path>
+                    </g>
+                </svg>
+                <br>
+                <span class="button-label" style="color: black">Products</span>
+            </div>
+
+
+            <div class="button-wrapper" style="text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" id="button3" viewBox="0 0 52 52" class="icon up" style="width: 50px; height: 40px; color: #ff0000; transform: rotate(360deg)">
+                    <defs>
+                        <filter id="hotspot-arrow_svg__a" x="0" y="0" filterUnits="userSpaceOnUse">
+                            <feOffset dy="3"></feOffset>
+                            <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                            <feFlood flood-opacity="0.161"></feFlood>
+                            <feComposite operator="in" in2="blur"></feComposite>
+                            <feComposite in="SourceGraphic"></feComposite>
+                        </filter>
+                    </defs>
+                    <g data-name="Group 55">
+                        <g transform="translate(0 .002)" filter="url(#hotspot-arrow_svg__a)" data-name="Group 44">
+                            <circle data-name="Ellipse 5" cx="17" cy="17" r="17" transform="rotate(90 18.5 24.5)" fill="#fffefe"></circle>
+                        </g>
+                        <path data-name="Icon ionic-ios-arrow-forward" d="m28.638 22.508-7.38-7.554a1.446 1.446 0 0 1 0-2.017 1.382 1.382 0 0 1 1.974 0l8.361 8.56a1.451 1.451 0 0 1 .041 1.969l-8.4 8.62a1.378 1.378 0 0 1-1.974 0 1.446 1.446 0 0 1 0-2.017Z"></path>
+                    </g>
+                </svg>
+                <br>
+                <span class="button-label" style="color: black">Factory</span>
+            </div>
+
+        </div>
+</div>
+
+<script>
+
+    document.getElementById('button1').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        var imageElement = document.getElementById('hubImage');
+        var videoContainer = document.getElementById('videoContainer');
+        var video = document.getElementById('myVideo');
+
+        imageElement.classList.add('zoomed-left');
+
+        imageElement.addEventListener('transitionend', function() {
+            // Display the video container and play the video
+            videoContainer.style.display = "block";
+            video.play();
+            video.controls = false; // Remove video controls
+
+            // Request fullscreen
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
+            }
+        }, { once: true });
+    });
+    document.getElementById('close-button').addEventListener('click', function() {
+        var videoContainer = document.getElementById('videoContainer');
+        var video = document.getElementById('myVideo');
+
+        videoContainer.style.display = 'none';
+        video.pause();
+        video.currentTime = 0; // Reset video to start
+
+        // Redirect to the main page (e.g., 'index.html')
+        window.location.href = 'index.html'; // Adjust the URL as needed for your site structure
+    });
+// button2
+
+    document.getElementById('button2').addEventListener('click', function (event) {
+        event.preventDefault();
+        var container = document.getElementById('hubImage');
+
+        // Start zoom-in effect with scaling
+        container.classList.remove('zoom-out');
+        container.classList.add('zoom-in');
+
+        // Apply scaling using CSS
+        container.style.transform = 'scale(2.5)';
+
+        // Wait for the zoom-in effect to complete
+        setTimeout(function () {
+            // Load landing_page.html content dynamically
+            loadPage('landing_page.html');
+        }, 700); // This should match the duration of the zoom-in animation
+    });
+
+    function loadPage() {
+        var url = 'landing_page.html'; // Specify the path here
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Replace the content of hubImage with the loaded content
+                    document.getElementById('hubImage').innerHTML = xhr.responseText;
+
+                    // Reset the scaling and transform property
+                    document.getElementById('hubImage').style.transform = 'none';
+                } else {
+                    console.error('Error loading page. Status code: ' + xhr.status);
+                }
+            }
+        };
+
+        // Fetch the content of the specified URL
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+
+
+    // Close button functionality
+    document.getElementById('button3').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        var imageElement = document.getElementById('hubImage');
+        var videoContainer = document.getElementById('videoContainer');
+        var video = document.getElementById('myVideo');
+
+        // Start the zoomed-right transition
+        imageElement.classList.add('zoomed-right');
+
+        // Listen for the end of the transition
+        imageElement.addEventListener('transitionend', function() {
+            // Display the video container and play the video
+            videoContainer.style.display = "block";
+            video.play();
+            video.controls = false; // Remove video controls
+
+            // Request fullscreen
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
+            }
+        }, { once: true });
+    });
+
+    document.getElementById('close-button').addEventListener('click', function() {
+        var videoContainer = document.getElementById('videoContainer');
+        var video = document.getElementById('myVideo');
+
+        videoContainer.style.display = 'none';
+        video.pause();
+        video.currentTime = 0; // Reset video to start
+
+        // Redirect to the main page (e.g., 'index.html')
+        window.location.href = 'index.html'; // Adjust the URL as needed for your site structure
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var button3 = document.getElementById('button3');
+        var videoContainer = document.getElementById('videoContainer');
+        var video = document.getElementById('myVideo');
+
+        button3.addEventListener('click', function(event) {
+            event.preventDefault();
+            // Add a class to button3 that starts the transition
+            button3.classList.add('start-transition');
+        });
+
+        button3.addEventListener('transitionend', function(event) {
+            if (event.propertyName === 'transform') { // Ensure the transitionend event is for the transform property
+                videoContainer.style.display = 'block'; // Display video container
+                setTimeout(function() { // Delay playing the video until the container is visible
+                    video.play();
+                }, 0);
+            }
+        });
+
+        var closeButton = document.getElementById('close-button');
+        closeButton.addEventListener('click', function() {
+            videoContainer.style.display = 'none';
+            video.pause();
+
+        });
+
+        function requestFullScreen(elem) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function exitFullScreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    });
+</script>
+
+
+
+</body>
+
+</html>

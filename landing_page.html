@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Image Popup</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    .image-container {
+        position: relative;
+
+    }
+
+    .popup-image {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: none;
+    }
+
+    .arrow-svg {
+        position: absolute;
+        bottom: 65px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .overlay.active {
+        display: block;
+    }
+#hide-button{
+    display: none;
+}
+</style>
+<body>
+
+<div class="image-container" id="fuck">
+    <img src="images/indexzoomjpg.jpg" alt="Image" class="popup-image img-fluid">
+    <a href="index.html" class="arrow-svg">
+        <div class="arrow-svg" style="position: absolute; top: 10px; left: 10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </div>
+        <div class="overlay" id="overlay"></div>
+    </a>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var imageContainer = document.querySelector('.image-container');
+        var overlay = document.getElementById('overlay');
+        var popupImage = document.querySelector('.popup-image');
+
+        imageContainer.addEventListener('click', function () {
+            popupImage.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.classList.toggle('overlay-active');
+        });
+    });
+</script>
+
+</body>
+</html>
